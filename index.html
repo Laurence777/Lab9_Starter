@@ -86,8 +86,15 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "ffccd4a8da284772b665766b06f853f3"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  
+    TrackJS.track('Testing TrackJS!');
+                        
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -102,6 +109,123 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click', () => {
+      console.log("Console Log Demo");
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error("Console Error Demo");
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count("Console Count Demo");
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn("Console Warn Demo");
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      console.assert(1 > 1, "Console Assert Demo");
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear("Console Clear Demo");
+    });
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(errorBtns[6]);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(document.body);
+    });
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group("Console Group Demo");
+      console.info("Message 1");
+      console.info("Message 2");
+      console.info("Message 3");
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd("Console Group Demo");
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      console.table([
+        {
+          name: "axel",
+          age: 3,
+        },
+        {
+          name: "bob",
+          age: 38,
+        },
+        {
+          name: "oaxaca",
+          age: 420,
+        }
+      ]);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time("Console Timer");
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd("Console Timer");
+    });
+
+    errorBtns[13].addEventListener('click', () => {
+      let a = () => { b(); };
+      let b = () => { c(); };
+      let c = () => { console.trace(); };
+      a();
+    });
+
+    errorBtns[14].addEventListener('click', () => {
+      if(window.onerror){
+      window.onerror = () => {
+        console.log("window.onerror triggered")
+      }
+      window.onerror();
+    }
+    console.log(window.onerror);
+    });
+
+    
+
+    class CustomError extends Error{
+      constructor(message){
+        super(message);
+        this.name = "CustomError";
+      }
+    }
+
+    try {
+      console.log('query 2');
+      errorBtns[99].setAttribute("name", "button 99");
+    } catch (error) {
+      console.log('CustomError');
+      throw new CustomError;
+    } 
+
+    try {
+      console.log("trying to query");
+      errorBtns[20].addEventListener('click', () => {
+        console.log('nonexistent button');
+      });
+    } catch (error) {
+      console.log("catch block entered");
+      throw new RangeError;
+    } finally {
+      console.log('finally block entered');
+    }
+
+    
+
+    
   </script>
 </body>
 
